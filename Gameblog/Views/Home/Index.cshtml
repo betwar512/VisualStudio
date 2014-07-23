@@ -1,31 +1,185 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@Styles.Render("~/Content/HomeStyle")
+<div id="tras">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <section class="sidebar col-lg-4">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
+        <h1>ASP.NET</h1>
+
+    </section>
+
+    <section class="main col col-lg-8">
+
+        <p class="fontColor">
+
+            ASP.NET is a free web framework for building great Web sites
+
+            and Web applications using HTML, CSS and JavaScript.
+
             ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+
             enables a clean separation of concerns and gives you full control over markup
+
             for enjoyable, agile development.
+
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+    </section>
+
+</div><!--class tras transparency .6-->
+<!--navbar-->
+
+<nav class="navbar navbar-default hidden-xs" role="navigation">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+
+    <div class="navbar-header">
+
+        <a class="navbar-brand" href="#">Brand</a>
+
+    </div><!--navbar-header-->
+
+    <ul class="nav navbar-nav">
+
+        @foreach (var item in ViewData["categories"] as IEnumerable<Gameblog.Models.Category>)
+        {
+
+            <li class="dropdown">
+                <a role="button" data-toggle="dropdown" href="#">@Html.DisplayFor(modelItem => item.category_name)</a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    @{var list = (item.SubCategories);
+                    //getting list all the subCategouries related to Categoury
+                    foreach (var f in list)
+                    {
+
+                        <li class="dropdown">  @f.sub_name  </li>
+
+
+                    }
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</nav><!--second nav-->
+
+<div class="container-fluid">
+
+    <section class="row">
+
+        <section class="main col">
+
+            <div id="myCarousel" class="carousel slide">
+
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+
+                </ol><!--carousel indecators-->
+
+                <section class="carousel-inner">
+
+                   @{int count = 0;
+                   foreach (var item in ViewData["Photos"] as IEnumerable<Gameblog.Models.Photo>)
+                   {
+            
+                       var newFileName = item.imageName;
+                       var imagePath = @"images\" + newFileName;
+                       var imageThumbPath = @"images\thumbs\" + newFileName;
+                       if (count == 0)
+                       {
+
+                        <div class="active item responsive"><img class="col-lg-8 pull-right" data-toggle="tooltip" src="~/@imagePath" />
+                    <div class="pull-left col-lg-4"> 
+                        <h2>@item.Review.title</h2>         
+                        <p>@item.Review.body1</p>
+                            </div>
+                    </div>
+                            
+                     
+                       }
+                       else
+                       {
+                            <div class=" item responsive"><img class="col-lg-8 pull-right" data-toggle="tooltip" src="~/@imagePath" />
+                                <section class="pull-left col-lg-4">
+                                    <h2>@item.Review.title</h2>
+                                    <p>@item.Review.body1</p>
+                             </section>
+                    </div>
+
+                       }
+                       count++;
+                   
+                   }
+}
+
+                </section><!--carousel-inner-->
+
+                <section>
+
+                    <a href="#myCarousel" class="left carousel-control" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span> </a>
+
+                    <a href="#myCarousel" class="right carousel-control" data-slide="next"><span class="glyphicon glyphicon-chevron-right "></span> </a>
+
+                </section> <!--carousel icons left-right-->
+
+            </div><!--carousel-top-->
+
+        </section><!--col lg-8-->
+
+        <section class="sidebar col col-lg-4 pull-right hidden-sm hidden-md hidden-xs" >
+      
+
+        </section><!--section with col soze 9 lg-->
+
+    </section><!--row-->
+
+    <!--side bar and main section snip it later -->
+    <hr style="color:black; " />
+
+    <section class="main col col-lg-10">
+
+    @* review with image  *@
+        @foreach (var item in ViewData["Reviews"] as IEnumerable<Gameblog.Models.Review>)
+        {
+            var img = item.Photos.SingleOrDefault();
+            var thumName = img.imageName;
+            var imageThumbPath = @"images\thumbs\" + thumName;
+            
+                 <div class="content row" style="background-color:white ; padding-top:30px;">
+                <section class="sidebar col col-lg-3 pull-left">
+                    <img src="~/@imageThumbPath" />
+                </section>
+                <section class="main col col-lg-9">
+                    @{
+            var body = item.body1;
+            //MaxLength of my string with 200 char from body1
+            var partBody = body.Substring(0, 200);   
+                      }
+                <h2>@Html.ActionLink(item.title, "Details", "Reviews",new{ id = item.id ,image=item.Photos}, new{ style ="color:gray;"})</h2>
+                    <p>@partBody</p>
+                </section>
+            </div><!--row-->
+            <hr style="color:black;" />
+
+        }
+
+
+    </section><!--col-lg-10 base content -->
+
+
+
+    <section class="main col col-lg-2 hidden-sm hidden-md hidden-xs pull-right">
+        <!--col-lg-2 side content-->
+        <p>
+            this is side right section with size on lg-2 get show only in lg screen size over 700px
+        </p>
+    </section>
+</div><!--container-fluid-->  

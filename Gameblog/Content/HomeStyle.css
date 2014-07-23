@@ -1,0 +1,10 @@
+﻿body {
+
+    padding-bottom: 20px;
+       background:url('image/The_Walking_Dead_video_game_wallpaper.jpg') no-repeat  no-repeat center center fixed padding-box;
+       -moz-background-size: cover;
+       -webkit-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;
+       padding-top:40px;
+}

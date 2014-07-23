@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/02/2014 18:27:07
+-- Date Created: 07/24/2014 03:43:33
 -- Generated from EDMX file: C:\Users\abbas\Documents\Visual Studio 2013\Projects\Gameblog\Gameblog\Models\BlogModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [Mydb];
+USE [myDbTie];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,17 +17,17 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_Products_SubCategory]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Reviews] DROP CONSTRAINT [FK_Products_SubCategory];
+IF OBJECT_ID(N'[dbo].[FK_SubCategory_Category]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SubCategories] DROP CONSTRAINT [FK_SubCategory_Category];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ReviewFile]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Photos] DROP CONSTRAINT [FK_ReviewFile];
 GO
+IF OBJECT_ID(N'[dbo].[FK_Products_SubCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Reviews] DROP CONSTRAINT [FK_Products_SubCategory];
+GO
 IF OBJECT_ID(N'[dbo].[FK_ReviewVideo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Videos] DROP CONSTRAINT [FK_ReviewVideo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SubCategory_Category]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SubCategories] DROP CONSTRAINT [FK_SubCategory_Category];
 GO
 
 -- --------------------------------------------------

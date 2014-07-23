@@ -5,62 +5,63 @@
 }
 
 <h2>Details</h2>
-
 <div>
-    <h4>Review</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.body1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.body1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.timeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.timeStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.body2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.body2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCategory.sub_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubCategory.sub_name)
-        </dd>
-
-    </dl>
+    @{
+      var photos = Model.Photos;
+      var first = photos.ElementAt<Gameblog.Models.Photo>(0);
+      if (!first.Equals(null)) { 
+      
+      var firstImage = first.imageName;
+      var imagePath = @"images\" + firstImage;
+      
+      <img src="~/@imagePath" id="headImage"/>
+        }
+       else {
+          //error handler here 
+      }
+    }
+    
 </div>
-<p>
+
+<div class="container-fluid myClass">
+
+    <section class="col-lg-8">
+    <h2>@Model.title</h2>
+        <hr style="color:black;" />
+        <div class="col-lg-3 pull-left">
+
+       @{var list = Model.Photos;
+         foreach(var f in list){
+         var fileName = f.imageName;
+         var imageThumbPath = @"images\thumbs\" + fileName; 
+      <img src="~/@imageThumbPath" />
+              }
+          }
+         
+
+        </div> <!--clo-3 super8-->
+        <div class="col-lg-9">
+
+            <p>@Model.body1</p>
+        @{var photo=list.FirstOrDefault();
+          var img=photo.imageName;
+          var path = @"images\" + img;
+          <img  src="~/@path" width="400" height="250"/>
+          }
+        <hr style="color:black;"/>
+         <h2>@Model.name</h2>
+        <p>@Model.body2</p>
+     
+        </div><!--col-9 super8-->
+     
+    </section> <!--col-8 main-->
+
+    <section class="col-lg-4">
+
+    </section><!--col-4 main-->
+
+</div>
+@*<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@

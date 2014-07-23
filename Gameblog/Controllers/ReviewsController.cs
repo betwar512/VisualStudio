@@ -18,6 +18,7 @@ namespace Gameblog.Controllers
         public ActionResult Index()
         {
             var reviews = db.Reviews.Include(r => r.SubCategory);
+            var rev = db.Reviews.Include(r => r.Photos);
             return View(reviews.ToList());
         }
 
@@ -52,6 +53,9 @@ namespace Gameblog.Controllers
         {
             if (ModelState.IsValid)
             {
+                DateTime now = new DateTime();
+                now = DateTime.Now;
+                review.timeStamp = now;
                 db.Reviews.Add(review);
                 db.SaveChanges();
                 return RedirectToAction("Index");
