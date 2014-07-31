@@ -1,0 +1,65 @@
+﻿
+    <div id="myCarousel" class="carousel slide">
+
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+
+    </ol><!--carousel indecators-->
+
+    <section class="carousel-inner">
+
+        @{int count = 0;
+        foreach (var item in ViewData["Photos"] as IEnumerable<Gameblog.Models.Photo>)
+        {
+
+            var newFileName = item.imageName;
+            var imagePath = @"images\" + newFileName;
+            var imageThumbPath = @"images\thumbs\" + newFileName;
+            if (count == 0)
+            {
+
+                <div class="active item responsive">
+                    <img class="col-lg-8 pull-right" data-toggle="tooltip" src="~/@imagePath" />
+                    <div class="pull-left col-lg-4  ">
+                        <h2>@item.Review.title</h2>
+                        <p class="hidden-xs">@item.Review.body1</p>
+                    </div>
+                </div>
+
+
+            }
+            else
+            {
+                <div class=" item responsive">
+                    <img class="col-lg-8 pull-right" data-toggle="tooltip" src="~/@imagePath" />
+                    <section class="pull-left col-lg-4">
+                        <h2>@item.Review.title</h2>
+                        <p class="hidden-xs">@item.Review.body1</p>
+                    </section>
+                </div>
+
+            }
+            count++;
+
+        }
+        }
+
+    </section><!--carousel-inner-->
+
+    <section>
+
+        <a href="#myCarousel" class="left carousel-control" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span> </a>
+
+        <a href="#myCarousel" class="right carousel-control" data-slide="next"><span class="glyphicon glyphicon-chevron-right "></span> </a>
+
+    </section> <!--carousel icons left-right-->
+
+</div><!--carousel-top-->
+
+ 

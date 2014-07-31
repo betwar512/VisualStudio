@@ -1,0 +1,31 @@
+﻿
+
+  @* review with image 
+  * first pass all reviews with images in 
+  * viewBag as Reviews
+  *@
+@foreach (var item in ViewData["Reviews"] as IEnumerable<Gameblog.Models.Review>)
+{
+    var img = item.Photos.First();
+    var thumName = img.imageName;
+    var imageThumbPath = @"images\thumbs\" + thumName;
+
+    <div class="content row" style="background-color:white ; padding-top:30px;">
+        <section class="sidebar col col-lg-3 pull-left">
+            <img src="~/@imageThumbPath" />
+        </section>
+        <section class="main col col-lg-9">
+            @{
+    var body = item.body1;
+    //MaxLength of my string with 200 char from body1
+    var partBody = body.Substring(0, 200);
+            }
+            <h2>@Html.ActionLink(item.title, "Details", "Reviews", new { id = item.id, image = item.Photos }, new { style = "color:gray;" })</h2>
+            <p>@partBody</p>
+        </section>
+    </div><!--row-->
+    <hr style="color:black;" />
+
+}
+
+

@@ -14,14 +14,13 @@ namespace Gameblog.Controllers
     {
 
         private MydbEntities db = new MydbEntities();
-
+       
         public ActionResult Index()
         {
 
             ViewData["categories"] = db.Categories;
             ViewData["photos"] = db.Photos; 
             ViewData["Reviews"] = db.Reviews.Include(r => r.Photos);
-
             return View();
         }
 
@@ -38,5 +37,7 @@ namespace Gameblog.Controllers
 
             return View();
         }
+   
+        
     }
 }

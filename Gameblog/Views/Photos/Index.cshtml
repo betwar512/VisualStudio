@@ -40,18 +40,22 @@
         </td>
         <td>
             @{
+                
+                
     var newFileName = item.imageName;
-    var imagePath = "";
     var imageThumbPath = "";
-           imagePath = @"images\" + newFileName;
     imageThumbPath = @"images\thumbs\" + newFileName;
 
     <div class="result">
         <img src="~/@imageThumbPath" alt="Thumbnail image" />
-        <a href="~/@Html.AttributeEncode(imagePath)" target="_Self">
+        @*<a href="~/@Html.AttributeEncode(imagePath)" target="_Self">
             View full size
-        </a>
-    </div>}
+        </a>*@
+    </div>
+       
+               
+                }
+                
 <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

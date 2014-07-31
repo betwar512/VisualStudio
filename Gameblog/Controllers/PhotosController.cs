@@ -41,7 +41,7 @@ namespace Gameblog.Controllers
         // GET: Photos/Create
         public ActionResult Create()
         {
-            ViewBag.Review_id = new SelectList(db.Reviews, "id", "name","Review_id");
+            ViewBag.Review_id = new SelectList(db.Reviews, "id", "name", "Review_id");
             return View();
         }
 
@@ -54,56 +54,56 @@ namespace Gameblog.Controllers
         {
 
             //Initialize our image file 
-          
 
-                WebImage image = null;
 
-                var newFileName = "";
+            WebImage image = null;
 
-                var imagePath = "";
+            var newFileName = "";
 
-                var imageThumbPath = "";
+            var imagePath = "";
 
-                image = WebImage.GetImageFromRequest();
+            var imageThumbPath = "";
 
-                if (image != null)
-                {
-                    //get Path add image 
+            image = WebImage.GetImageFromRequest();
 
-                    newFileName = Guid.NewGuid().ToString() + "_" +
+            if (image != null)
+            {
+                //get Path add image 
 
-                    Path.GetFileName(image.FileName);
+                newFileName = Guid.NewGuid().ToString() + "_" +
 
-                    imagePath = @"Content\images\" + newFileName;
+                Path.GetFileName(image.FileName);
 
-                    image.Save(@"~\" + imagePath);
+                imagePath = @"images\" + newFileName;
 
-                    imageThumbPath = @"~\Content\images" + newFileName;
+                image.Save(@"~\" + imagePath);
 
-                    image.Resize(width: 60, height: 60, preserveAspectRatio: true,
+                imageThumbPath = @"images\thumbs\" + newFileName;
 
-                    preventEnlarge: true);
+                image.Resize(width: 60, height: 60, preserveAspectRatio: true,
 
-                    image.Save(@"~\" + imageThumbPath);
+                preventEnlarge: true);
 
-                }
+                image.Save(@"~\" + imageThumbPath);
 
-                //save model object in sql Db
+            }
 
-                if (ModelState.IsValid)
-                {
-                    //create timestamp for photo 
-                    DateTime now = new DateTime();
-                    now = DateTime.Now;
-                    photo.timeStamp = now;
-                    //add fileName
-                    photo.imageName = newFileName;
-                    //save our object with timestamp
-                    db.Photos.Add(photo);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                
-             }
+            //save model object in sql Db
+
+            if (ModelState.IsValid)
+            {
+                //create timestamp for photo 
+                DateTime now = new DateTime();
+                now = DateTime.Now;
+                photo.timeStamp = now;
+                //add fileName
+                photo.imageName = newFileName;
+                //save our object with timestamp
+                db.Photos.Add(photo);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
             ViewBag.Review_id = new SelectList(db.Reviews, "id", "name", photo.Review_id);
             return View(photo);
         }
