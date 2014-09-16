@@ -5,58 +5,49 @@
 }
 
 <h2>Details</h2>
+
 <div>
     @{
-      var photos = Model.Photos;
-      var first = photos.ElementAt<Gameblog.Models.Photo>(0);
-      if (!first.Equals(null)) { 
-      
-      var firstImage = first.imageName;
+      var firstImage = ViewBag.image;
       var imagePath = @"images\" + firstImage;
-      
       <img src="~/@imagePath" id="headImage"/>
-        }
-       else {
-          //error handler here 
-      }
     }
     
 </div>
 
 <div class="container-fluid myClass">
 
+    <div style="padding-top:20px;">
+        @RenderPage("../Shared/_Navbar.cshtml")
+    </div>
     <section class="col-lg-8">
     <h2>@Model.title</h2>
         <hr style="color:black;" />
         <div class="col-lg-3 pull-left hidden-sm">
 
-       @{var list = Model.Photos;
-       foreach (var f in list)
-       {
-           var fileName = f.imageName;
+      @{
+           var fileName = ViewBag.image;
            var imageThumbPath = @"images\thumbs\" + fileName;
         <img src="~/@imageThumbPath" class="img-circle" width="85" height="85"/>
-       }
-    }
-
+      }
         </div> <!--clo-3 super8-->
         <div class="col-lg-9 col-sm-9">
             <p>@Model.body1</p>
-        @{var photo = list.FirstOrDefault();
-        var img = photo.imageName;
+        @{
+            var img = ViewBag.image;
         var path = @"images\" + img;
         <img src="~/@path" class="col-lg-9 col-md-9 col-sm-9 col-xs-9" />
         }
         <hr style="color:black;"/>
          <h2>@Model.name</h2>
         <p>@Model.body2</p>
-     
+
         </div><!--col-9 super8-->
      
     </section> <!--col-8 main-->
 
     <section class="col-lg-4">
-
+ 
     </section><!--col-4 main-->
 
 </div>

@@ -19,6 +19,7 @@ namespace Gameblog.Controllers
         // GET: Photos
         public ActionResult Index()
         {
+            
             var photos = db.Photos.Include(p => p.Review);
             return View(photos.ToList());
         }

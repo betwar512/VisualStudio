@@ -25,16 +25,24 @@ namespace Gameblog.Controllers
         // GET: Reviews/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Review review = db.Reviews.Find(id);
-            if (review == null)
-            {
-                return HttpNotFound();
-            }
-            return View(review);
+            ViewData["categories"] = db.Categories;
+           
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            //ger review from db
+                Review review = db.Reviews.Find(id);
+            //get image out here 
+                Photo img=review.Photos.FirstOrDefault();
+                string imgUrl = img.imageName;
+           //pass image to view with viewBag 
+                ViewBag.image = imgUrl;
+                if (review == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(review);
         }
 
         // GET: Reviews/Create

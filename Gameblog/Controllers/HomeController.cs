@@ -21,6 +21,8 @@ namespace Gameblog.Controllers
             ViewData["categories"] = db.Categories;
             ViewData["photos"] = db.Photos; 
             ViewData["Reviews"] = db.Reviews.Include(r => r.Photos);
+            
+
             return View();
         }
 
